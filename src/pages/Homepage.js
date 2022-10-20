@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from "react";
-import Search from "../components/Search";
-import Picture from "../components/Picture";
+import React, { useState, useEffect } from 'react';
+import Search from '../components/Search';
+import Picture from '../components/Picture';
 
 const Homepage = () => {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   let [data, setData] = useState(null);
   let [page, setPage] = useState(1);
-  let [currentSearch, setCurrentSearch] = useState("");
-  const auth = "563492ad6f917000010000012844c5981f7c4834b370640af0240f0c";
-  const intialURL = "https://api.pexels.com/v1/curated?page=1&per_page=15";
+  let [currentSearch, setCurrentSearch] = useState('');
+  const auth = '563492ad6f917000010000012844c5981f7c4834b370640af0240f0c';
+  const intialURL = 'https://api.pexels.com/v1/curated?page=1&per_page=4';
   const searchURL = `https://api.pexels.com/v1/search?query=${currentSearch}&per_page=15&page=1`;
 
   // fetch data from pexels api
   const search = async (url) => {
     setPage(2);
     const dataFetch = await fetch(url, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
         Authorization: auth,
       },
     });
@@ -28,16 +28,16 @@ const Homepage = () => {
   // load more picture
   const morepicture = async () => {
     let newURL;
-    if (currentSearch === "") {
+    if (currentSearch === '') {
       newURL = `https://api.pexels.com/v1/curated?page=${page}&per_page=15`;
     } else {
       newURL = `https://api.pexels.com/v1/search?query=${currentSearch}&per_page=15&page=${page}`;
     }
     setPage(page + 1);
     const dataFetch = await fetch(newURL, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
         Authorization: auth,
       },
     });
@@ -51,7 +51,7 @@ const Homepage = () => {
   }, []);
 
   useEffect(() => {
-    if (currentSearch === "") {
+    if (currentSearch === '') {
       search(intialURL);
     } else {
       search(intialURL);
@@ -60,7 +60,7 @@ const Homepage = () => {
   }, [currentSearch]);
 
   return (
-    <div style={{ minHeight: "100vh" }}>
+    <div style={{ minHeight: '100vh' }}>
       <Search
         search={() => {
           setCurrentSearch(input);
